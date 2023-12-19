@@ -25,3 +25,14 @@ class PositionalEncoding(nn.Model):
         # Create a vector of shape (seq_len, 1)
         position = torch.arange(0, seq_len, dtype=torch.float).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+        # Apply the sin to even positions
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        
+        pe = pe.unqueeze(0) # (1, seq_len, d_model)
+        self.register_buffer("pe", pe)
+        
+    def forward(self, x):
+        x = x + (self.pe[:, :x.shape[1], :]).requires_grad_(False)
+        #x = x + self.pe[:x.size(0), :]
+        return self.dropout(x)
