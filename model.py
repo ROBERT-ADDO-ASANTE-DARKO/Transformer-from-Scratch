@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import math
 
-class InputEmbeddings(nn.Model):
+class InputEmbeddings(nn.Module):
     def __init__(self, d_model: int, vocab_size: int):
         super(InputEmbeddings, self).__init__()
         self.d_model = d_model
@@ -13,7 +13,7 @@ class InputEmbeddings(nn.Model):
     def forward(self, x):
         return self.embedding(x) * math.sqrt(self.d_model)
     
-class PositionalEncoding(nn.Model):
+class PositionalEncoding(nn.Module):
     def __init__(self, d_model: int, seq_len: int, dropout: float) -> None:
         super(PositionalEncoding, self).__init__()
         self.d_model = d_model
@@ -216,6 +216,7 @@ def build_transformer(src_vocab_size: int, tgt_vocab_size:int, src_seq_len: int,
         feed_forward_block = FeedForwardBlock(d_model, d_ff, dropout)
         encoder_block = EncoderBlock(d_model, encoder_self_attention_block, feed_forward_block, dropout)
         encoder_blocks.append(encoder_block)
+        print(encoder_blocks)
         
     # Create the decoder blocks
     decoder_blocks = []
@@ -225,6 +226,7 @@ def build_transformer(src_vocab_size: int, tgt_vocab_size:int, src_seq_len: int,
         feed_forward_block = FeedForwardBlock(d_model, d_ff, dropout)
         decoder_block = DecoderBlock(d_model, decoder_self_attention_block, decoder_cross_attention_block, feed_forward_block, dropout)
         decoder_blocks.append(decoder_block)
+        print(decoder_blocks)
         
     # Create the encoder and decoder
     encoder = Encoder(d_model, nn.ModuleList(encoder_blocks))
