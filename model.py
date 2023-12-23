@@ -5,7 +5,7 @@ import math
 
 class InputEmbeddings(nn.Model):
     def __init__(self, d_model: int, vocab_size: int):
-        super().__init__()
+        super(InputEmbeddings, self).__init__()
         self.d_model = d_model
         self.vocab_size = vocab_size
         self.embedding = nn.Embedding(vocab_size, d_model)
@@ -15,7 +15,7 @@ class InputEmbeddings(nn.Model):
     
 class PositionalEncoding(nn.Model):
     def __init__(self, d_model: int, seq_len: int, dropout: float) -> None:
-        super().__init__()
+        super(PositionalEncoding, self).__init__()
         self.d_model = d_model
         self.seq_len = seq_len
         self.dropout = nn.Dropout(dropout)
@@ -39,7 +39,7 @@ class PositionalEncoding(nn.Model):
     
 class LayerNormalization(nn.Module):
     def __init__(self, eps: float = 10**-6) -> None:
-        super().__init__()
+        super(LayerNormalization, self).__init__()
         self.eps = eps
         self.alpha = nn.Parameter(torch.ones(1)) # Multiplied
         self.bias = nn.Parameter(torch.zeros(1)) # Added
@@ -51,7 +51,7 @@ class LayerNormalization(nn.Module):
     
 class FeedForwardBlock(nn.Module):
     def __init__(self, d_model: int, d_ff: int, dropout: float) -> None:
-        super().__init__()
+        super(FeedForwardBlock, self).__init__()
         self.linear_1 = nn.Linear(d_model) # W1 and B1
         self.dropout = nn.Dropout(dropout)
         self.linear_2 = nn.Linear(d_ff, d_model) # W2 and B2
@@ -62,7 +62,7 @@ class FeedForwardBlock(nn.Module):
     
 class ResidualConnection(nn.Module):
     def __init__(self, features: int, dropout: float) -> None:
-        super().__init__()
+        super(ResidualConnection, self).__init__()
         self.dropout = nn.Dropout(dropout)
         self.norm = LayerNormalization(features)
         
@@ -71,7 +71,7 @@ class ResidualConnection(nn.Module):
     
 class MultiHeadAttentionBlock(nn.Module):
     def __init__(self, d_model: int, h: int, dropout: float) -> None:
-        super().__init__()
+        super(MultiHeadAttentionBlock, self).__init__()
         self.d_model = d_model
         self.h = h
         assert d_model % h == 0, "d_model is not divisible by h"
@@ -116,7 +116,7 @@ class MultiHeadAttentionBlock(nn.Module):
     
 class EncoderBlock(nn.Module):
     def __init__(self, features: int, self_attention_block: MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout: float) -> None:
-        super().__init__()
+        super(EncoderBlock, self).__init__()
         self.self_attention_block = self_attention_block
         self.feed_forward_block = feed_forward_block
         self.residual_connections = nn.ModuleList([ResidualConnection(features, dropout) for _ in range(2)])
@@ -128,7 +128,7 @@ class EncoderBlock(nn.Module):
     
 class Encoder(nn.Module):
     def __init__(self, features: int, layers: nn.ModuleList) -> None:
-        super().__init__()
+        super(Encoder, self).__init__()
         self.layers = layers
         self.norm = LayerNormalization(features)
         
@@ -140,7 +140,7 @@ class Encoder(nn.Module):
 class DecoderBlock(nn.Module):
     def __init__(self, features: int, self_attention_block: MultiHeadAttentionBlock, cross_attention_block: MultiHeadAttentionBlock,
                  feed_forward_block: FeedForwardBlock, dropout: float) -> None:
-        super().__init__()
+        super(DecoderBlock, self).__init__()
         self.self_attention_block = self_attention_block
         self.cross_attention_block = cross_attention_block
         self.feed_forward_block = feed_forward_block
@@ -154,7 +154,7 @@ class DecoderBlock(nn.Module):
     
 class Decoder(nn.Module):
     def __init__(self, features: int, layers: nn.ModuleList) -> None:
-        super().__init__()
+        super(Decoder, self).__init__()
         self.layers = layers
         self.norm = LayerNormalization(features)
         
@@ -165,7 +165,7 @@ class Decoder(nn.Module):
     
 class ProjectionLayer(nn.Module):
     def __init__(self, d_model, vocab_size) -> None:
-        super().__init__()
+        super(ProjectionLayer, self).__init__()
         self.proj = nn.Linear(d_model, vocab_size)
         
     def forward(self, x):
