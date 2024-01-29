@@ -95,7 +95,7 @@ The training code uses the dataset class to load and preprocess the training dat
 The training code also includes methods for saving the trained model to a file, and for loading the trained model from a file. This allows the trained model to be easily reused in other applications.
 
 ### Evaluation
-The evaluation code is defined in the evaluate.py module. The evaluation code includes methods for evaluating the model on a variety of tasks, such as translation, summarization, and question answering.
+The evaluation code is defined in the `evaluate.py` module. The evaluation code includes methods for evaluating the model on a variety of tasks, such as translation, summarization, and question answering.
 
 The evaluation code uses the dataset class to load and preprocess the evaluation data. The evaluation code also includes methods for computing the evaluation metrics, such as BLEU score for translation or ROUGE score for summarization.
 
