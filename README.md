@@ -83,12 +83,12 @@ The dataset class is defined in the dataset.py module. The dataset class is resp
 The dataset class also includes methods for loading the data from a variety of sources, such as text files, CSV files, or SQL databases. This allows the model to be trained on a wide range of data types and formats.
 
 ### Configuration
-The configuration class is defined in the config.py module. The configuration class is used to store the hyperparameters and other configuration options for the model. This includes options such as the number of layers in the encoder and decoder, the size of the hidden state, and the type of attention mechanism to use.
+The configuration class is defined in the `config.py` module. The configuration class is used to store the hyperparameters and other configuration options for the model. This includes options such as the number of layers in the encoder and decoder, the size of the hidden state, and the type of attention mechanism to use.
 
 The configuration class also includes methods for loading and saving the configuration to a file. This allows the configuration to be easily shared and reused across different experiments.
 
 ### Training
-The training code is defined in the train.py module. The training code includes methods for training the model, evaluating the model, and saving the trained model to a file.
+The training code is defined in the `train.py` module. The training code includes methods for training the model, evaluating the model, and saving the trained model to a file.
 
 The training code uses the dataset class to load and preprocess the training data. The training code also includes methods for computing the loss and gradients, and for updating the model parameters.
 
@@ -100,7 +100,7 @@ The evaluation code is defined in the evaluate.py module. The evaluation code in
 The evaluation code uses the dataset class to load and preprocess the evaluation data. The evaluation code also includes methods for computing the evaluation metrics, such as BLEU score for translation or ROUGE score for summarization.
 
 ### Translation
-The translation code is defined in the translate.py module. The translation code includes methods for using the trained model to translate text from one language to another.
+The translation code is defined in the `translate.py` module. The translation code includes methods for using the trained model to translate text from one language to another.
 
 The translation code uses the dataset class to tokenize the input text and add positional encoding. The translation code then feeds the encoded input through the model to generate the target sequence of tokens. The translation code also includes methods for detokenizing the output sequence and postprocessing the translation to improve fluency and accuracy.
 
